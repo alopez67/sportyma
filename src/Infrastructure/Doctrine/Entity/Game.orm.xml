@@ -4,33 +4,27 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
         https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Entity\Team">
+    <entity name="App\Domain\Entity\Game">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
 
-        <unique-constraints>
-            <unique-constraint columns="name" name="search_name" />
-        </unique-constraints>
-
         <field name="name" column="name" type="string" length="255" nullable="false"/>
 
-        <one-to-many field="players" target-entity="Player" mapped-by="team" fetch="EAGER">
+        <many-to-one field="homeTeam" target-entity="Team" inversed-by="homeGames">
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-many>
 
-        <one-to-many field="awayGames" target-entity="Game" mapped-by="awayTeam" fetch="EAGER">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-        </one-to-many>
+            <join-column name="home_team_id" referenced-column-name="id"/>
+        </many-to-one>
 
-        <one-to-many field="homeGames" target-entity="Game" mapped-by="homeTeam" fetch="EAGER">
+        <many-to-one field="awayTeam" target-entity="Team" inversed-by="awayGames">
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-many>
+
+            <join-column name="away_team_id" referenced-column-name="id"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>
