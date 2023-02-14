@@ -4,10 +4,8 @@ namespace App\Domain\Repository;
 
 use App\Domain\Entity\Player;
 
-interface PlayerRepository
+interface PlayerRepository extends RepositoryInterface
 {
-    public function create(Player $player): void;
-
     /**
      * @return array<Player>
      */

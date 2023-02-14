@@ -5,11 +5,25 @@ namespace App\Domain\Entity;
 use App\Domain\Exception\ValidationException;
 use Symfony\Component\Uid\Uuid;
 
-class Player
+/**
+ *
+ */
+class Player implements EntityInterface
 {
+    /**
+     * @var Uuid
+     */
     private Uuid $id;
 
+    /**
+     * @var string
+     */
     private string $name;
+
+    /**
+     * @var Team
+     */
+    private Team $team;
 
     /**
      * @throws ValidationException
@@ -37,5 +51,15 @@ class Player
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @param Team $team
+     * @return Team
+     */
+    public function setTeam(Team $team): Player
+    {
+        $this->team = $team;
+        return $this;
     }
 }
